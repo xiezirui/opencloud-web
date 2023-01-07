@@ -28,6 +28,7 @@
 </template>
 
 <script>
+    import Header from "@/components/header/Header";
     export default {
         // eslint-disable-next-line vue/multi-word-component-names
         name: "Register",
@@ -42,19 +43,17 @@
         },
         methods: {
             register(){
+                var url = "http://loaclhost:1016/api/register"
                 // {code: 200, data: null, msg: '注册成功'}
                 // eslint-disable-next-line no-undef
-                this.$axios.post("http://localhost:1016/api/register",this.user).then(function (response) {
-                    if (response.data.code == 200){
-                        console.log("login")
-                    }
-                    // eslint-disable-next-line no-unused-vars
+                this.$axios.post(url,{...this.user},function (response) {
+                    localStorage.setItem("token",response.data.data.token)
+                    this.$router.replace("/home")
                 }).catch(function (error) {
-                    if (error.response){
-                        alert(error.response.data.msg)
-                    }
+                    alert(error.data.msg)
                 })
-            }
+            },
+
         }
     }
 
