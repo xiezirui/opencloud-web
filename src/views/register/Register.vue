@@ -42,19 +42,21 @@
             }
         },
         methods: {
-            register(){
-                var url = "http://loaclhost:1016/api/register"
-                // {code: 200, data: null, msg: '注册成功'}
-                // eslint-disable-next-line no-undef
-                this.$axios.post(url,{...this.user},function (response) {
+            register: function () {
+                let url = "http://localhost:1016/api/register";
+                this.$axios.post(url, {...this.user}).then(function (response) {
                     localStorage.setItem("token",response.data.data.token)
                     this.$router.replace("/home")
-                }).catch(function (error) {
-                    alert(error.data.msg)
                 })
-            },
+                    .catch(function (error) {
+                        if (error.response){
+                            alert(error.response.data.msg)
+                        }
+                    })
+            }
+        },
 
-        }
+
     }
 
 </script>

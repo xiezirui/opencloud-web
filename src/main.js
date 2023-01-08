@@ -33,16 +33,6 @@ axios.interceptors.request.use(
     }
 )
 
-//响应如果有token就保存到localStorage中
-axios.interceptors.response.use(
-    function (response) {
-        if (response.data.data.token != null){
-            localStorage.setItem("token",response.data.data.token)
-        }
-        return response
-    }
-)
-
 // eslint-disable-next-line vue/multi-word-component-names
 app.component("Header",Header)
 
