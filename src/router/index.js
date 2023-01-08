@@ -1,16 +1,12 @@
 import {createRouter,createWebHashHistory} from "vue-router";
 
-import Register from "@/views/register/Register";
-import Home from "@/views/home/Home";
-
 const routes = [
     {
-        path: "/register",
-        component: Register
+        path: '/register',
+        component: () => import('../views/register/Register')
     },{
-        path: "/home",
-        name: "home",
-        component: Home
+        path: '/home',
+        component: () => import('../views/home/Home')
     }
 ]
 

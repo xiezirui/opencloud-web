@@ -28,7 +28,10 @@
 </template>
 
 <script>
-    import Header from "@/components/header/Header";
+    import router from '@/router'
+    import localService from "@/service/localService";
+    import userService from "../../service/userService";
+
     export default {
         // eslint-disable-next-line vue/multi-word-component-names
         name: "Register",
@@ -42,19 +45,22 @@
             }
         },
         methods: {
-            register(){
-                var url = "http://loaclhost:1016/api/register"
-                // {code: 200, data: null, msg: '注册成功'}
-                // eslint-disable-next-line no-undef
-                this.$axios.post(url,{...this.user},function (response) {
-                    localStorage.setItem("token",response.data.data.token)
-                    this.$router.replace("/home")
-                }).catch(function (error) {
-                    alert(error.data.msg)
+            register: function () {
+                let url = "http://localhost:1016/api/register";
+                userService.register(this.user).then(function (response) {
+                    //{user_token: token}
+                    localService.set(localService.USER_TOKEN,response.data.data.token)
+                    router.replace('/home')
                 })
+                    .catch(function (error) {
+                        if (error.response){
+                            alert(error.response.data.msg)
+                        }
+                    })
             },
+        },
 
-        }
+
     }
 
 </script>
