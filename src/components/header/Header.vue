@@ -9,41 +9,49 @@
                 <el-form>
                     <el-form-item>
                         <el-row>
-                            <el-col :span="20"><el-input v-model="key" size="small"/></el-col>
+                            <el-col :span="20"><el-input v-model="key" size="small" prefix-icon="Search"/></el-col>
                             <el-col :span="4"><el-button type="primary" @click="searchData">搜索</el-button></el-col>
                         </el-row>
                     </el-form-item>
                 </el-form>
             </el-col>
             <el-col :span="5">
-                <el-button v-if="isNotLogin" type="primary" style="height: 40px" @click="onClick">登录/注册</el-button>
-                <el-button v-if="!isNotLogin" type="primary" style="height: 40px" icon="Avatar">{{user.name}}</el-button>
+                <el-button v-if="!GetIsLogin" type="primary" style="height: 40px" @click="toRegister">登录/注册</el-button>
+                <span></span><el-button v-if="GetIsLogin" type="primary" style="height: 40px" @click="toUserPage">{{GetName}}</el-button>
             </el-col>
         </el-row>
     </el-header>
+    <el-divider style="margin: 0px;"/>
 </template>
 
 <script>
+    import localService from '@/service/localService'
+import store from '@/store'
     export default {
         // eslint-disable-next-line vue/multi-word-component-names
         name: "Header",
         data(){
             return{
-                isNotLogin: true,
-                user: {
-                    name: '',
-                    telephone: '',
-                    password: '',
-                },
                 key: ''
             }
         },
         methods: {
-            onClick(){
+            toRegister(){
                 this.$router.push("/register")
+            },
+            toUserPage(){
+                this.$router.push("/userpage")
             },
             searchData(){
 
+            }
+        },
+        computed: {
+            GetIsLogin() {
+                return this.$store.state.user.isLogin
+            },
+            GetName(){
+                return JSON.parse(this.$store.state.user.userInfo).Name
             }
         }
     }

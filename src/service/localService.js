@@ -7,12 +7,17 @@ const set = (k, v) => {
 }
 
 const get = (k) => {
-    localStorage.getItem(k);
+    return localStorage.getItem(k);
+}
+
+const remove = (k) => {
+    localStorage.removeItem(k)
 }
 
 export default {
     set,
     get,
+    remove,
     USER_TOKEN,
     USER_INFO,
 }

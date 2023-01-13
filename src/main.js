@@ -8,7 +8,7 @@ import router from './router/index'
 import Vuelidate from 'vuelidate'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
-import { createStore } from 'vuex'
+import store from "@/store";
 
 import addToken from "@/middleware/TokenSupport";
 
@@ -21,18 +21,7 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
     app.component(key, component)
 }
 
-const store = createStore({
-    state () {
-        return {
-            count: 0
-        }
-    },
-    mutations: {
-        increment (state) {
-            state.count++
-        }
-    }
-})
+
 
 app.use(ElementPlus)
 app.use(router)

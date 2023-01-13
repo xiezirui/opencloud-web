@@ -29,7 +29,7 @@
 
 <script>
     import router from '@/router'
-    import localService from "@/service/localService";
+    import store from "@/store";
     import userService from "../../service/userService";
 
     export default {
@@ -45,12 +45,23 @@
             }
         },
         methods: {
+
             register: function () {
                 let url = "http://localhost:1016/api/register";
-                userService.register(this.user).then(function (response) {
+                userService.register(this.user)
+                .then(function (response) {
                     //{user_token: token}
-                    localService.set(localService.USER_TOKEN,response.data.data.token)
+
+                    //没有执行方法!
+
+                    store.commit('user/SET_TOKEN', response.data.data.token)
+                    store.commit('user/SET_INFO', JSON.stringify(response.data.data.user)) //js -> json
+                    console.log(JSON.stringify(response.data.data.user))
+                    
+                    store.commit('user/LOGIN')
+
                     router.replace('/home')
+
                 })
                     .catch(function (error) {
                         if (error.response){
