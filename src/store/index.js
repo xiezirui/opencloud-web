@@ -2,6 +2,7 @@ import { createStore } from 'vuex'
 
 import user from '@/store/module/user'
 import upPwd from '@/store/module/upPwd'
+import blog from "@/store/module/blog";
 
 const store = createStore({
     state () {
@@ -9,7 +10,8 @@ const store = createStore({
     },
     modules: {
         user: user,
-        upPwd: upPwd
+        upPwd: upPwd,
+        blog: blog
     }
 })
 

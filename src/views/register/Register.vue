@@ -20,6 +20,7 @@
                 <el-row>
                     <el-form-item>
                         <el-button type="primary" @click="register()">注册</el-button>
+                         | <span>已注册？</span><el-button @click="toLogin()">登录</el-button>
                     </el-form-item>
                 </el-row>
             </el-form>
@@ -47,19 +48,11 @@
         methods: {
 
             register: function () {
-                let url = "http://localhost:1016/api/register";
                 userService.register(this.user)
                 .then(function (response) {
-                    //{user_token: token}
-
-                    //没有执行方法!
-
                     store.commit('user/SET_TOKEN', response.data.data.token)
                     store.commit('user/SET_INFO', JSON.stringify(response.data.data.user)) //js -> json
-                    console.log(JSON.stringify(response.data.data.user))
-                    
                     store.commit('user/LOGIN')
-
                     router.replace('/home')
 
                 })
@@ -69,6 +62,9 @@
                         }
                     })
             },
+            toLogin(){
+                router.replace('/login')
+            }
         },
 
 

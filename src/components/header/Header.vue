@@ -1,11 +1,14 @@
 <template>
     <el-header>
         <el-row>
-            <el-col :span="4" style="height: 40px; line-height: 50px">
-                <span style="font-size: 50px;position: center">OpenCloud</span>
+            <el-col :span="2" style="height: 40px; line-height: 50px">
+                <span style="font-size: 20px;position: center">OpenCloud</span>
             </el-col>
-            <el-col :span="10"></el-col>
-            <el-col :span="5" style="height: 40px">
+            <el-col :span="6" style="height: 40px; line-height: 50px">
+                <el-button type="primary" style="height: 40px" @click="toBlog">博客</el-button>
+                <el-button type="primary" style="height: 40px" @click="toConversation">话题</el-button>
+            </el-col>
+            <el-col :span="8" style="height: 40px">
                 <el-form>
                     <el-form-item>
                         <el-row>
@@ -15,9 +18,13 @@
                     </el-form-item>
                 </el-form>
             </el-col>
-            <el-col :span="5">
+            <el-col :span="6">
                 <el-button v-if="!GetIsLogin" type="primary" style="height: 40px" @click="toRegister">登录/注册</el-button>
-                <span></span><el-button v-if="GetIsLogin" type="primary" style="height: 40px" @click="toUserPage">{{GetName}}</el-button>
+                <el-button v-if="GetIsLogin" type="primary" style="height: 40px" @click="toHome">我的主页</el-button>
+                <el-button v-if="GetIsLogin" type="primary" style="height: 40px" @click="toUserPage">{{GetName}}</el-button>
+            </el-col>
+            <el-col :span="2">
+                <el-button type="primary" style="height: 40px" @click="toRelease">发布</el-button>
             </el-col>
         </el-row>
     </el-header>
@@ -25,8 +32,6 @@
 </template>
 
 <script>
-    import localService from '@/service/localService'
-import store from '@/store'
     export default {
         // eslint-disable-next-line vue/multi-word-component-names
         name: "Header",
@@ -36,11 +41,23 @@ import store from '@/store'
             }
         },
         methods: {
-            toRegister(){
+            toRegister() {
                 this.$router.push("/register")
             },
-            toUserPage(){
+            toUserPage() {
                 this.$router.push("/userpage")
+            },
+            toHome() {
+                this.$router.push("/home")
+            },
+            toBlog() {
+                this.$router.push("/blog")
+            },
+            toConversation() {
+
+            },
+            toRelease() {
+                this.$router.push("/release")
             },
             searchData(){
 
